@@ -14,7 +14,7 @@
 "physGrain": false,
 "calcGrainSize": false,
 "heatDiff": true,
-"variable_srho":, false
+"variable_srho": false,
 "rhos0": 350.0,
 "r2s0": 1.0e-8,
 "yearSpin": 20,

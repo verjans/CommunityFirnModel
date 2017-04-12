@@ -20,13 +20,13 @@ thenames=["HLdynamic","HLSigfus","Helsen2008","Arthern2010S","Arthern2010T","Sim
 
 nn=sys.argv[1]
 # print nn
-connm='EGU_config_summit_'+nn+'.json'
+connm='EGU_config_'+nn+'.json'
 copyfile('EGU_config_master.json', connm)
 
 for mm in thenames:
     
 #     print "mm=",mm
-
+    print connm
     jsonFile = open(connm, "r")
     data = json.load(jsonFile)
     jsonFile.close()
