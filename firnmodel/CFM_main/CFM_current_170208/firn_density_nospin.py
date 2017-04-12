@@ -165,10 +165,10 @@ class FirnDensityNoSpin:
         self.Dcon       = self.c['D_surf'] * np.ones(self.gridLen)  # layer tracking routine (initial depth vector)
 
         # set up vector of times data will be written
-        Tind = np.nonzero(self.modeltime>=1900.0)[0][0]
+        # Tind = np.nonzero(self.modeltime>=1900.0)[0][0]
 
-        self.TWrite     = self.modeltime[Tind]
-        # self.TWrite     = self.modeltime[0::self.c['TWriteInt']]
+        # self.TWrite     = self.modeltime[Tind]
+        self.TWrite     = self.modeltime[10800::self.c['TWriteInt']]
         # self.TWrite_out = self.TWrite
         TWlen           = len(self.TWrite) #- 1
         self.WTracker        = 1
