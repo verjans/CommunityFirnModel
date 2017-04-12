@@ -31,7 +31,7 @@ for mm in thenames:
     data = json.load(jsonFile)
     jsonFile.close()
 
-    re="EGUresults_MM/" + nn + "/" + mm
+    re="EGUresults_MM/r" + nn + "/" + mm
     tein="inputdata/Summit_tskin_" + nn + ".csv"
     smbin="inputdata/Summit_smb_" + nn + ".csv"
 
