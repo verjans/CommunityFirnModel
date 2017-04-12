@@ -41,7 +41,7 @@ for mm in thenames:
     data["InputFileNameTemp"] = tein
     data["InputFileNamebdot"] = smbin
 
-    if mm=="Arthern2010S":
+    if mm=="Arthern2010T":
         data["physGrain"] = True
     else:
         data["physGrain"] = False

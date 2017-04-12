@@ -253,7 +253,7 @@ class FirnPhysics:
         Ec  = 60.0e3
         
 
-        if not physGrain:
+        if not self.physGrain:
            print "Grain growth should be on for Arthern Transient"
            return
 
