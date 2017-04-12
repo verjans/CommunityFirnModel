@@ -92,7 +92,7 @@ class FirnPhysics:
         elif self.bdot_type == 'mean':
             drho_dt[self.rho < RHO_1] = k1 * np.exp(-Q1 / (R * self.Tz[self.rho < RHO_1])) * (RHO_I_MGM - self.rho[self.rho < RHO_1] / 1000) * (A_mean[self.rho < RHO_1])**aHL * 1000 / S_PER_YEAR
 
-        drho_dt[(self.rho >= RHO_1) & (self.rho < RHO_I)]  = k * (sigmaDiff * rhoDiff[self.rho >= RHO_1]) / (GRAVITY * np.log((RHO_I_MGM - RHO_1 / 1000) / (rhoDiff[(self.rho >= RHO_1) & (self.rho < RHO_I)])))
+        drho_dt[(self.rho >= RHO_1) & (self.rho < RHO_I)]  = k * (sigmaDiff * rhoDiff[(self.rho >= RHO_1) & (self.rho < RHO_I)]) / (GRAVITY * np.log((RHO_I_MGM - RHO_1 / 1000) / (rhoDiff[(self.rho >= RHO_1) & (self.rho < RHO_I)])))
         drho_dt[(self.rho >= RHO_1) & (self.rho >= RHO_I)] = 0
 
         # self.viscosity = np.ones(self.gridLen)
@@ -381,8 +381,8 @@ class FirnPhysics:
             A_instant = self.bdotSec[self.iii] * self.steps * S_PER_YEAR * RHO_I_MGM * 1000
             M_0 = 1.435 - 0.151 * np.log(A_instant)
             M_1 = 2.366 - 0.293 * np.log(A_instant)
-            M_0 = np.max((0.25,M_0))
-            M_1 = np.max((0.25,M_1))
+            M_0 = np.maximum(0.25,M_0)
+            M_1 = np.maximum(0.25,M_1)
             dr_dt[self.rho < RHO_1]  = (RHO_I - self.rho[self.rho < RHO_1]) * M_0 * ar1 * A_instant * GRAVITY * np.exp(-Ec / (R * self.Tz[self.rho < RHO_1]) + Eg / (R * self.T10m))
             dr_dt[self.rho >= RHO_1] = (RHO_I - self.rho[self.rho >= RHO_1]) * M_1 * ar2 * A_instant * GRAVITY * np.exp(-Ec / (R * self.Tz[self.rho >= RHO_1])+ Eg / (R * self.T10m))
         elif self.bdot_type == 'mean':
@@ -390,8 +390,8 @@ class FirnPhysics:
             A_mean_2 = self.bdot_mean[self.rho >= RHO_1] * RHO_I
             M_0 = 1.435 - 0.151 * np.log(A_mean_1)
             M_1 = 2.366 - 0.293 * np.log(A_mean_2)
-            M_0 = np.max((0.25,M_0))
-            M_1 = np.max((0.25,M_1))
+            M_0 = np.maximum(0.25,M_0)
+            M_1 = np.maximum(0.25,M_1)
             dr_dt[self.rho < RHO_1]  = (RHO_I - self.rho[self.rho < RHO_1]) * M_0 * ar1 * A_mean_1 * GRAVITY * np.exp(-Ec / (R * self.Tz[self.rho < RHO_1]) + Eg / (R * self.T10m))
             dr_dt[self.rho >= RHO_1] = (RHO_I - self.rho[self.rho >= RHO_1]) * M_1 * ar2 * A_mean_2 * GRAVITY * np.exp(-Ec / (R * self.Tz[self.rho >= RHO_1]) + Eg / (R * self.T10m))
 
@@ -545,8 +545,8 @@ class FirnPhysics:
                 print "It is not recommended to use instant accumulation with Ligtenberg 2011 physics"
             M_0 = 1.042 - 0.0916 * np.log(A_instant)
             M_1 = 1.734 - 0.2039 * np.log(A_instant)
-            M_0 = np.max((0.25,M_0))
-            M_1 = np.max((0.25,M_1))
+            M_0 = np.maximum(0.25,M_0)
+            M_1 = np.maximum(0.25,M_1)
             dr_dt[self.rho < RHO_1]  = (RHO_I - self.rho[self.rho < RHO_1]) * M_0 * ar1 * A_instant * GRAVITY * np.exp(-Ec / (R * self.Tz[self.rho < RHO_1]) + Eg / (R * self.T10m))
             dr_dt[self.rho >= RHO_1] = (RHO_I - self.rho[self.rho >= RHO_1]) * M_1 * ar2 * A_instant * GRAVITY * np.exp(-Ec / (R * self.Tz[self.rho >= RHO_1])+ Eg / (R * self.T10m))
 
@@ -555,8 +555,8 @@ class FirnPhysics:
             A_mean_2 = self.bdot_mean[self.rho >= RHO_1] * RHO_I
             M_0 = 1.042 - 0.0916 * np.log(A_mean_1)
             M_1 = 1.734 - 0.2039 * np.log(A_mean_2)
-            M_0 = np.max((0.25,M_0))
-            M_1 = np.max((0.25,M_1))
+            M_0 = np.maximum(0.25,M_0)
+            M_1 = np.maximum(0.25,M_1)
             dr_dt[self.rho < RHO_1]  = (RHO_I - self.rho[self.rho < RHO_1]) * M_0 * ar1 * A_mean_1 * GRAVITY * np.exp(-Ec / (R * self.Tz[self.rho < RHO_1]) + Eg / (R * self.T10m))
             dr_dt[self.rho >= RHO_1] = (RHO_I - self.rho[self.rho >= RHO_1]) * M_1 * ar2 * A_mean_2 * GRAVITY * np.exp(-Ec / (R * self.Tz[self.rho >= RHO_1]) + Eg / (R * self.T10m))
 
