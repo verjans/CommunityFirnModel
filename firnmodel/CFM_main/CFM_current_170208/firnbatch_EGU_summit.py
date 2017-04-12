@@ -21,7 +21,7 @@ thenames=["HLdynamic","HLSigfus","Helsen2008","Arthern2010S","Arthern2010T","Sim
 nn=sys.argv[1]
 # print nn
 connm='EGU_config_summit_'+nn+'.json'
-copyfile('EGU_config_summit_master.json', connm)
+copyfile('EGU_config_master.json', connm)
 
 for mm in thenames:
     
