@@ -32,7 +32,7 @@ jsonFile = open(connm, "r")
 data = json.load(jsonFile)
 jsonFile.close()
 
-re="EGUresults_ens/r" + nn + "/" + mm #results folder
+re="EGUresults_ens/all" + nn + "/" + mm #results folder
 tein="inputdata/Summit_tskin_" + nn + ".csv"
 smbin="inputdata/Summit_smb_" + nn + ".csv"
 
