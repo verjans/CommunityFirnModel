@@ -91,9 +91,14 @@ class FirnPhysics:
             drho_dt[self.rho < RHO_1] = k1 * np.exp(-Q1 / (R * self.Tz[self.rho < RHO_1])) * (RHO_I_MGM - self.rho[self.rho < RHO_1] / 1000) * A_instant**aHL * 1000 / S_PER_YEAR
         elif self.bdot_type == 'mean':
             drho_dt[self.rho < RHO_1] = k1 * np.exp(-Q1 / (R * self.Tz[self.rho < RHO_1])) * (RHO_I_MGM - self.rho[self.rho < RHO_1] / 1000) * (A_mean[self.rho < RHO_1])**aHL * 1000 / S_PER_YEAR
-
-        drho_dt[self.rho >= RHO_1]  = k * (sigmaDiff * rhoDiff[self.rho >= RHO_1]) / (GRAVITY * np.log((RHO_I_MGM - RHO_1 / 1000) / (rhoDiff[self.rho >= RHO_1])))
-        drho_dt[self.rho >= RHO_I] = 0
+        # try:
+        drho_dt[self.rho >= RHO_1]  = k * (sigmaDiff * rhoDiff[self.rho >= RHO_1]) / (GRAVITY * np.log((RHO_I_MGM - RHO_1 / 1000) / (rhoDiff[self.rho >= RHO_1])+1.0e-15))
+        # except:
+        # 	print 'exception at iii=', iii
+        # 	print 'k', k
+        # drho_dt[self.rho >= RHO_I] = 0	
+        # drho_dt[(self.rho >= RHO_1) & (self.rho < RHO_I)]  = k * (sigmaDiff * rhoDiff[(self.rho >= RHO_1) & (self.rho < RHO_I)]) / (GRAVITY * np.log((RHO_I_MGM - RHO_1 / 1000) / (rhoDiff[(self.rho >= RHO_1) & (self.rho < RHO_I)])))
+        
 
         # self.viscosity = np.ones(self.gridLen)
 

@@ -58,7 +58,7 @@ def write_nospin_hdf5(self):
     f4.create_dataset('depth',data=self.z_out)
     # f4.create_dataset('Dcon',data=self.D_out)
     # f4.create_dataset('bdot',data=self.bdot_out)
-    f4.create_dataset('Modelclimate',data=self.Clim_out)
+    # f4.create_dataset('Modelclimate',data=self.Clim_out)
     # if self.c['physGrain']:
     #     f4.create_dataset('r2',data=self.r2_out)
     if self.THist:
