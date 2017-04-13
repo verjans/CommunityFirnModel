@@ -6,7 +6,7 @@ from diffusion import isoDiff
 from reader import read_input
 from reader import read_init
 # from writer import write_nospin
-from writer import write_nospin_init
+# from writer import write_nospin_init
 # from writer import write_nospin_BCO
 # from writer import write_nospin_LIZ
 # from writer import write_nospin_DIP
@@ -168,7 +168,7 @@ class FirnDensityNoSpin:
         # Tind = np.nonzero(self.modeltime>=1900.0)[0][0]
 
         # self.TWrite     = self.modeltime[Tind]
-        self.TWrite     = self.modeltime[10800::self.c['TWriteInt']]
+        self.TWrite     = self.modeltime[11400::self.c['TWriteInt']]
         # self.TWrite_out = self.TWrite
         TWlen           = len(self.TWrite) #- 1
         self.WTracker        = 1
@@ -201,11 +201,11 @@ class FirnDensityNoSpin:
         # self.RD = {}
 
         self.rho_out = np.zeros((TWlen+1,len(self.dz)+1),dtype='float32')
-        self.Tz_out = np.zeros((TWlen+1,len(self.dz)+1),dtype='float32')
-        self.age_out = np.zeros((TWlen+1,len(self.dz)+1),dtype='float32')
+        # self.Tz_out = np.zeros((TWlen+1,len(self.dz)+1),dtype='float32')
+        # self.age_out = np.zeros((TWlen+1,len(self.dz)+1),dtype='float32')
         self.z_out = np.zeros((TWlen+1,len(self.dz)+1),dtype='float32')
-        self.D_out = np.zeros((TWlen+1,len(self.dz)+1),dtype='float32')
-        self.bdot_out = np.zeros((TWlen+1,len(self.dz)+1),dtype='float32')
+        # self.D_out = np.zeros((TWlen+1,len(self.dz)+1),dtype='float32')
+        # self.bdot_out = np.zeros((TWlen+1,len(self.dz)+1),dtype='float32')
         self.Clim_out = np.zeros((TWlen+1,3),dtype='float32')
         self.DIP_out = np.zeros((TWlen+1,4),dtype='float32')
         self.LIZ_out = np.zeros((TWlen+1,3),dtype='float32')
@@ -214,22 +214,22 @@ class FirnDensityNoSpin:
         # print 'TWlen', TWlen+1
 
         rho_time        = np.append(self.modeltime[0], self.rho)
-        Tz_time         = np.append(self.modeltime[0], self.Tz)
-        age_time        = np.append(self.modeltime[0], self.age/S_PER_YEAR)
+        # Tz_time         = np.append(self.modeltime[0], self.Tz)
+        # age_time        = np.append(self.modeltime[0], self.age/S_PER_YEAR)
         z_time          = np.append(self.modeltime[0], self.z)
-        D_time          = np.append(self.modeltime[0], self.Dcon)
+        # D_time          = np.append(self.modeltime[0], self.Dcon)
         Clim_time       = np.append(self.modeltime[0], [self.bdot[0], self.Ts[0]])  # not sure if bdot or bdotSec
-        bdot_time       = np.append(self.modeltime[0], self.bdot_mean)
+        # bdot_time       = np.append(self.modeltime[0], self.bdot_mean)
 
         self.rho_out[0,:]        = rho_time
-        self.Tz_out[0,:]         = Tz_time
-        self.age_out[0,:]        = age_time
+        # self.Tz_out[0,:]         = Tz_time
+        # self.age_out[0,:]        = age_time
         self.z_out[0,:]          = z_time
-        self.D_out[0,:]          = D_time
+        # self.D_out[0,:]          = D_time
         self.Clim_out[0,:]       = Clim_time
-        self.bdot_out[0,:]       = bdot_time
+        # self.bdot_out[0,:]       = bdot_time
 
-        print 'rho_out size (MB):', self.rho_out.nbytes/1.0e6
+        # print 'rho_out size (MB):', self.rho_out.nbytes/1.0e6
 
         # self.rho_out[0,:]        = np.append(self.modeltime[0], self.rho)
         # self.Tz_out[0,:]         = np.append(self.modeltime[0], self.diffu.Tz)
@@ -239,14 +239,14 @@ class FirnDensityNoSpin:
         # self.Clim_out[0,:]       = np.append(self.modeltime[0], [self.bdot[0], self.Ts[0]])  # not sure if bdot or bdotSec
         # self.bdot_out[0,:]       = np.append(self.modeltime[0], self.bdot_mean)
 
-        # set up initial grain growth (if specified in config file)
+        ### set up initial grain growth (if specified in config file)
         if self.c['physGrain']:
             initr2              = read_init(self.c['resultsFolder'], self.c['spinFileName'], 'r2Spin')
             self.r2             = initr2[1:]
             r20                 = self.r2
-            self.r2_out         = np.zeros((TWlen+1,len(self.dz)+1),dtype='float32')
-            r2_time             = np.append(self.modeltime[0], self.r2)
-            self.r2_out[0,:]    = r2_time
+            # self.r2_out         = np.zeros((TWlen+1,len(self.dz)+1),dtype='float32')
+            # r2_time             = np.append(self.modeltime[0], self.r2)
+            # self.r2_out[0,:]    = r2_time
             
         else:
             self.r2_out         = None
@@ -471,14 +471,14 @@ class FirnDensityNoSpin:
                 # print self.WTracker
                 self.rho_out[self.WTracker,:] = np.append(mtime_plus1, self.rho)
                 # print '!!!', self.rho_out[0:2,0:10]
-                self.Tz_out[self.WTracker,:]   = np.append(mtime_plus1, self.Tz)
-                self.age_out[self.WTracker,:]  = np.append(mtime_plus1, self.age/S_PER_YEAR)
+                # self.Tz_out[self.WTracker,:]   = np.append(mtime_plus1, self.Tz)
+                # self.age_out[self.WTracker,:]  = np.append(mtime_plus1, self.age/S_PER_YEAR)
                 self.z_out[self.WTracker,:]    = np.append(mtime_plus1, self.z)
-                self.D_out[self.WTracker,:] = np.append(mtime_plus1, self.Dcon)
+                # self.D_out[self.WTracker,:] = np.append(mtime_plus1, self.Dcon)
                 self.Clim_out[self.WTracker,:] = np.append(mtime_plus1, [self.bdot[int(iii)], self.Ts[int(iii)]])
-                self.bdot_out[self.WTracker,:] = np.append(mtime_plus1, self.bdot_mean)
-                if self.c['physGrain']:
-                    self.r2_out[self.WTracker,:] = np.append(mtime_plus1, self.r2)
+                # self.bdot_out[self.WTracker,:] = np.append(mtime_plus1, self.bdot_mean)
+                # if self.c['physGrain']:
+                    # self.r2_out[self.WTracker,:] = np.append(mtime_plus1, self.r2)
                 if self.THist:
                     self.Hx_out[self.WTracker,:] = np.append(mtime_plus1, self.Hx)
                 if self.c['isoDiff']:

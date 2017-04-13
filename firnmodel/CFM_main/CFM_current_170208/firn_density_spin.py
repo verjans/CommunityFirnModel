@@ -83,7 +83,7 @@ class FirnDensitySpin:
 
         ### accumulation rate
         input_bdot, input_year_bdot = read_input(self.c['InputFileNamebdot'])
-        self.bdot0 = input_bdot[0] #Make sure that this is what we want!
+        self.bdot0 = np.mean(input_bdot[:]) #Make sure that this is what we want!
         
         ### could include others, e.g. surface density
         ##########
