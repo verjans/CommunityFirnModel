@@ -152,8 +152,18 @@ class FirnDensitySpin:
             self.del_z = init_del_z
         else:
             self.del_s = None
-            init_del_z = None    
-        
+            init_del_z = None
+
+        ### Set up firn air module    
+        try:
+            if self.c['airDiff']:
+                gas_s = np.ones(self.stp) #the surface gas concentration
+                        
+
+
+        except:
+            print "add air diffusion to json"
+            pass
 
         ### Surface Density
         self.rhos0      = self.c['rhos0'] * np.ones(self.stp)

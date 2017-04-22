@@ -124,3 +124,6 @@ def isoDiff(self,iii):
     self.del_z = np.concatenate(([self.del_s[iii]], self.del_z[:-1]))
 
     return self.del_z
+
+    def airDiff(self,iii):
+        pass
