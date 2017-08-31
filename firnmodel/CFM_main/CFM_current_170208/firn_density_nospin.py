@@ -95,20 +95,22 @@ class FirnDensityNoSpin:
             input_temp = input_temp + K_TO_C
         input_bdot, input_year_bdot = read_input(self.c['InputFileNamebdot'])
         input_bdot[input_bdot<=0.0] = 0.01
+
+        input_iso, input_year_iso = read_input(self.c['InputFileNameIso'])
         # if self.c['variable_srho']:
         #     input_srho, input_year_srho = read_input(self.c['InputFileNamesrho'])
 
         ### set up time stepping
         # year to start and end, from the input file. If inputs have different start/finish, take only the overlapping times
-        yr_start        = max(input_year_temp[0], input_year_bdot[0])   # start year
-        yr_end          = min(input_year_temp[-1], input_year_bdot[-1]) # end year
+        yr_start        = max(input_year_temp[0], input_year_bdot[0], input_year_iso[0])   # start year
+        yr_end          = min(input_year_temp[-1], input_year_bdot[-1], input_year_iso[-1]) # end year
         
         self.years      = (yr_end - yr_start) * 1.0 
         self.dt         = S_PER_YEAR / self.c['stpsPerYear']
         self.stp        = int(self.years * S_PER_YEAR/self.dt + 1)       # total number of time steps, as integer
         # self.modeltime  = np.linspace(yr_start, yr_end, self.stp + 1)   # vector of time of each model step
         self.modeltime  = np.linspace(yr_start, yr_end, self.stp)
-
+        print self.modeltime[0:40]
         # self.dt         = self.years * S_PER_YEAR / self.stp            # size of time steps, seconds
         self.t          = 1.0 / self.c['stpsPerYear']                   # years per time step
 
@@ -131,7 +133,7 @@ class FirnDensityNoSpin:
         if self.c['isoDiff']:
             init_del_z    = read_init(self.c['resultsFolder'], self.c['spinFileName'], 'IsoSpin')
             try:
-                input_iso, input_year_iso = read_input(self.c['InputFileNameIso'])
+                # input_iso, input_year_iso = read_input(self.c['InputFileNameIso'])
                 self.del_s  = np.interp(self.modeltime, input_year_iso, input_iso)
                 # del_s0 = input_iso[0]
             except:
@@ -164,7 +166,7 @@ class FirnDensityNoSpin:
         # set up vector of times data will be written
         # Tind = np.nonzero(selfself.modeltime>=1958.0)[0][0]
 
-        self.TWrite     = self.modeltime[0::self.c['TWriteInt']]
+        self.TWrite     = np.append(self.modeltime[0::self.c['TWriteInt']],self.modeltime[-1])
         # self.TWrite_out = self.TWrite
         TWlen           = len(self.TWrite) #- 1
         self.WTracker        = 1
