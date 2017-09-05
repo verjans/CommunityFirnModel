@@ -3,7 +3,7 @@
 "InputFileNameTemp": "CFM_age_temp.csv",
 "InputFileNamebdot": "CFM_age_accum.csv",
 "InputFileNameIso": "CFM_age_isotope_backdiff.csv",
-"resultsFolder": "Tyler6_backdiff",
+"resultsFolder": "Tyler6b_backdiff",
 "physRho": "HLdynamic",
 "TWriteInt": 3000,
 "TAmp":10.0,
