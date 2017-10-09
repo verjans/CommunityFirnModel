@@ -1,0 +1,2 @@
+This file serves as a training file to learn more about GitHub.
+Vincent Verjans
